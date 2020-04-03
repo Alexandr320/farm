@@ -1,6 +1,7 @@
 package exam1;
 
 public class Animals {
+    // материнский класс для диких и домашних жвотных
     protected String name = "Животное";
     protected int weight;
     protected int speed;

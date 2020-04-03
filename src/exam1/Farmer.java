@@ -7,9 +7,9 @@ public class Farmer {
     protected String farmer;
     protected int farmerResourse;
 
-    public Farmer(String farmer) {
+    public Farmer(String farmer, int farmerResourse) {
         this.farmer = farmer;
-        this.farmerResourse = 5;
+        this.farmerResourse = farmerResourse;
     }
 
     public String getFarmer() {
@@ -28,21 +28,30 @@ public class Farmer {
         this.farmerResourse = farmerResourse;
     }
 
-    public void collectResourse(Pets[] pets) {
+    public int checkPetsResourse(Pets[] pets) {   // проверяем наличие живых питомцев, дающих ресурс
+        int a = 0; // вспом. переменная подсчета живых питомцев, дающих ресурс
+
         for (int i = 0; i < pets.length; i++) {
-            if (pets[i] instanceof CanGiveResourse && pets[i].onFarm == true) {
-                farmerResourse += pets[i].resourse;
+            if (pets[i] instanceof CanGiveResourse && pets[i].onFarm) {
+                a += 1;
+            }
+        }
+        return a;
+    }
+
+    public void collectResourse(Pets[] pets) {     // метод - сбор ресурсов фермером
+        for (int i = 0; i < pets.length; i++) {
+            if (pets[i] instanceof CanGiveResourse && pets[i].onFarm) { // проверка, дает ли ресурс и живо ли
+                farmerResourse += pets[i].recourse;
             }
         }
     }
 
     Random random = new Random(new Date().getTime());
 
-    public void canAway(WildAnimals myAnimal) {
-        if (random.nextBoolean() == true) {
-
+    public void canAway(WildAnimals myAnimal) {     // метод - фермер может прогнать дикое животное с фермы
+        if (random.nextBoolean()) {
+            myAnimal.outcast += 1;
         }
     }
-
-
 }
